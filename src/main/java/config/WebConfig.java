@@ -1,6 +1,6 @@
 package config;
 
-import controllers.HomeController;
+import controllers.MainController;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +15,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackageClasses = HomeController.class)
+@ComponentScan(basePackageClasses = MainController.class)
 public class WebConfig extends WebMvcConfigurerAdapter{
 
     @Bean
