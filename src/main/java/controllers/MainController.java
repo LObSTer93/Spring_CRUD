@@ -53,7 +53,7 @@ public class MainController {
     }
 
     @RequestMapping(value = "/edit/{infoId}", method = RequestMethod.GET)
-    public String showEdit(Model model, @PathVariable("infoId") String infoId) {
+        public String showEdit(Model model, @PathVariable("infoId") String infoId) {
         Info editedInfo = repo.getById(Long.parseLong(infoId));
         model.addAttribute("isEdit", true);
         model.addAttribute("info", editedInfo);
