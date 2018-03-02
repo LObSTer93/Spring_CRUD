@@ -12,7 +12,7 @@
         </h1>
 
         <form method="POST">
-            <input type="hidden" name="id" value="${isEdit ? info.id : ''}">
+            <input type="hidden" name="id" value="${isEdit ? info.id : '0'}">
             <table>
                 <tr>
                     <td>
