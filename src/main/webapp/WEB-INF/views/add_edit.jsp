@@ -3,27 +3,35 @@
 <html>
     <head>
         <title>
-            <c:choose>
-                <c:when test="${isEdit}">
-                    Edit
-                </c:when>
-                <c:otherwise>
-                    Add
-                </c:otherwise>
-            </c:choose>
+            ${isEdit ? "Edit" : "Add"}
         </title>
     </head>
     <body>
-        <h1>Add new info</h1>
+        <h1>
+            ${isEdit ? "Edit info with id ".concat(info.id) : "Add new info"}
+        </h1>
 
         <form method="POST">
-            <label for="name">Name:</label>
-            <input type="text" name="name" id="name"/><br/>
-
-            <label for="eMail">Email: </label>
-            <input type="email" name="eMail" id="eMail"/><br/>
-
-            <input type="submit" value="add" />
+            <input type="hidden" name="id" value="${isEdit ? info.id : ''}">
+            <table>
+                <tr>
+                    <td>
+                        <label for="name">Name:</label>
+                    </td>
+                    <td>
+                        <input type="text" name="name" id="name" value="${isEdit ? info.name : ''}" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="eMail">Email: </label>
+                    </td>
+                    <td>
+                        <input type="email" name="eMail" id="eMail" value="${isEdit ? info.EMail : ''}" />
+                    </td>
+                </tr>
+            </table>
+            <input type="submit" value="${isEdit ? 'edit' : 'add'}" />
         </form>
     </body>
 </html>

@@ -19,6 +19,11 @@ public class RepoImpl implements Repo {
     private JdbcTemplate jdbcTemplate;
 
     @Override
+    public Info getById(long infoId) {
+        return jdbcTemplate.queryForObject("select id, name, email from info where id=?", new InfoRowMapper(), infoId);
+    }
+
+    @Override
     public List<Info> getAll() {
         return jdbcTemplate.query("select id, name, email from info", new InfoRowMapper());
     }
@@ -36,6 +41,11 @@ public class RepoImpl implements Repo {
     @Override
     public void delete(long infoId) {
         jdbcTemplate.update("delete from info where id=?", infoId);
+    }
+
+    @Override
+    public void edit(Info info) {
+        jdbcTemplate.update("update info set name=?, email=? where id=?", info.getName(), info.getEMail(), info.getId());
     }
 
     private static final class InfoRowMapper implements RowMapper<Info> {

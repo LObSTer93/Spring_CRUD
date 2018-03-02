@@ -46,4 +46,18 @@ public class MainController {
         repo.delete(Long.parseLong(infoId));
         return "redirect:/showAll";
     }
+
+    @RequestMapping(value = "/edit/{infoId}", method = RequestMethod.GET)
+    public String showEdit(Model model, @PathVariable("infoId") String infoId){
+        Info editedInfo = repo.getById(Long.parseLong(infoId));
+        model.addAttribute("isEdit", true);
+        model.addAttribute("info", editedInfo);
+        return "add_edit";
+    }
+
+    @RequestMapping(value = "/edit/{infoId}", method = RequestMethod.POST)
+    public String processEdit(Info info){
+        repo.edit(info);
+        return "redirect:/showAll";
+    }
 }

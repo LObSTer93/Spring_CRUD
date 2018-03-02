@@ -8,6 +8,13 @@ import java.util.List;
 public interface Repo {
 
     /**
+     * Получение информации из БД
+     * @param infoId - id запрашиваемой инфы
+     * @return - запрашиваемая инфа
+     */
+    Info getById(long infoId);
+
+    /**
      * Получение списка информации из БД
      * @return - список информации из БД
      */
@@ -24,4 +31,10 @@ public interface Repo {
      * @param infoId - id удаляемой инфы
      */
     void delete(long infoId);
+
+    /**
+     * Редактирование инфы
+     * @param info - редактируемая инфа
+     */
+    void edit(Info info);
 }
