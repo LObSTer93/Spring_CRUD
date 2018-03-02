@@ -1,10 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page session="false" %>
 <html>
 <head>
     <title>Show all info</title>
 </head>
 <body>
-    <a href="<c:url value="/addInfo" />">Add info</a>
+    <a href="<c:url value="/add" />">Add info</a>
 
     <c:if test="${!empty infoList}">
         <table>

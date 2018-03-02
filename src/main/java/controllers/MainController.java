@@ -1,5 +1,6 @@
 package controllers;
 
+import Data.Info;
 import Data.Repo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,8 +24,20 @@ public class MainController {
 
     @RequestMapping(value = "/showAll", method = RequestMethod.GET)
     public String showAll(Model model){
-        model.addAttribute("infoList", repo.getInfo());
+        model.addAttribute("infoList", repo.getAll());
         return "showAll";
+    }
+
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    public String showAdd(Model model){
+        model.addAttribute("isEdit", false);
+        return "add_edit";
+    }
+
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public String processAdd(Info info){
+        repo.save(info);
+        return "redirect:/showAll";
     }
 
     /**

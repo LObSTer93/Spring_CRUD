@@ -1,18 +1,21 @@
 package Data;
 
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 /**
  * Данные в БД
  */
-@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Info {
 
     @Getter
+    @Setter
     private long id;
     @Getter
+    @Setter
     private String name;
     @Getter
+    @Setter
     private String eMail;
 }
