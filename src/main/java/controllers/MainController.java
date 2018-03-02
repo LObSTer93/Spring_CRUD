@@ -5,6 +5,7 @@ import Data.Repo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -40,11 +41,9 @@ public class MainController {
         return "redirect:/showAll";
     }
 
-    /**
-     * Страница со всеми записями + ссылка на переход к странице добавления записей
-     */
-
-    /**
-     * Страница добавления записей. После добавления переадресция на страницу со всеми записями
-     */
+    @RequestMapping(value = "/delete/{infoId}", method = RequestMethod.GET)
+    public String delete(@PathVariable("infoId") String infoId){
+        repo.delete(Long.parseLong(infoId));
+        return "redirect:/showAll";
+    }
 }

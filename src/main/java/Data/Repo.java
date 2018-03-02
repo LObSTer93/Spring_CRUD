@@ -13,5 +13,15 @@ public interface Repo {
      */
     List<Info> getAll();
 
+    /**
+     * Сохранение новой информации
+     * @param info - новая сохраняемая информация
+     */
     void save(Info info);
+
+    /**
+     * Удаление инфы
+     * @param infoId - id удаляемой инфы
+     */
+    void delete(long infoId);
 }

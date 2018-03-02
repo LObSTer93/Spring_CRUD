@@ -33,6 +33,11 @@ public class RepoImpl implements Repo {
         jdbcInsert.execute(args);
     }
 
+    @Override
+    public void delete(long infoId) {
+        jdbcTemplate.update("delete from info where id=?", infoId);
+    }
+
     private static final class InfoRowMapper implements RowMapper<Info> {
         public Info mapRow(ResultSet rs, int rowNum) throws SQLException {
             long id = rs.getLong("id");
