@@ -1,6 +1,8 @@
 package Data;
 
+import Exceptions.InfoNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
@@ -20,7 +22,11 @@ public class RepoImpl implements Repo {
 
     @Override
     public Info getById(long infoId) {
-        return jdbcTemplate.queryForObject("select id, name, email from info where id=?", new InfoRowMapper(), infoId);
+        try {
+            return jdbcTemplate.queryForObject("select id, name, email from info where id=?", new InfoRowMapper(), infoId);
+        }catch (EmptyResultDataAccessException e){
+            throw new InfoNotFoundException(infoId);
+        }
     }
 
     @Override

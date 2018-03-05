@@ -2,11 +2,13 @@ package controllers;
 
 import Data.Info;
 import Data.Repo;
+import Exceptions.InfoNotFoundException;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import java.util.ArrayList;
@@ -39,6 +41,7 @@ public class MainControllerTest {
         internalResourceViewResolver.setExposeContextBeansAsAttributes(true);
 
         mockMvc = standaloneSetup(new MainController(repo))
+                .setControllerAdvice(new ControllerExceptionHandler())
                 .setViewResolvers(internalResourceViewResolver)
                 .build();
     }
@@ -49,7 +52,6 @@ public class MainControllerTest {
         mockMvc.perform(get("/showAll")).andExpect(view().name("showAll"));
         mockMvc.perform(get("/add")).andExpect(view().name("add_edit"));
         mockMvc.perform(get("/delete/2")).andExpect(view().name("redirect:/showAll"));
-        mockMvc.perform(get("/edit/2")).andExpect(view().name("add_edit"));
     }
 
     @Test
@@ -78,13 +80,25 @@ public class MainControllerTest {
 
     @Test
     public void showEditTest() throws Exception {
-        int infoId = 1;
+        long infoId = 1;
         Info expectedInfo = new Info(infoId, "name", "email");
         when(repo.getById(infoId)).thenReturn(expectedInfo);
 
         mockMvc.perform(get("/edit/"+infoId))
+                .andExpect(view().name("add_edit"))
                 .andExpect(model().attributeExists("info"))
                 .andExpect(model().attribute("info", expectedInfo))
                 .andExpect(model().attribute("isEdit", true));
+    }
+
+    @Test
+    public void exceptionTest() throws Exception{
+        long infoId = 1;
+        Throwable infoNotFoundException = new InfoNotFoundException(infoId);
+        when(repo.getById(infoId)).thenThrow(infoNotFoundException);
+
+        mockMvc.perform(get("/edit/"+infoId))
+                .andExpect(model().attributeExists("id"))
+                .andExpect(model().attribute("id", infoId));
     }
 }

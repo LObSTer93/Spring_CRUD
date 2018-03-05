@@ -22,7 +22,6 @@ public class MainController {
         this.repo = repo;
     }
 
-
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home() {
         return "home";
