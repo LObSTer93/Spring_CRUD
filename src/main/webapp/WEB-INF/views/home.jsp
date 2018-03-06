@@ -6,7 +6,6 @@
     </head>
     <body>
         Home!
-        <a href="<c:url value="/add" />">Add info</a>
         <a href="<c:url value="/showAll" />">Show all</a>
     </body>
 </html>
