@@ -1,4 +1,4 @@
-package Data;
+package dao;
 
 import Exceptions.InfoNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,8 +18,12 @@ import java.util.Map;
 @Repository
 public class RepoImpl implements Repo {
 
-    @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    public RepoImpl(JdbcTemplate jdbcTemplate){
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     @Override
     public Info getById(long infoId) {
@@ -38,9 +43,11 @@ public class RepoImpl implements Repo {
     public void save(Info info) {
         SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate).withTableName("info");
         jdbcInsert.setGeneratedKeyName("id");
+
         Map<String, Object> args = new HashMap<>();
         args.put("name", info.getName());
         args.put("email", info.getEMail());
+
         jdbcInsert.execute(args);
     }
 
