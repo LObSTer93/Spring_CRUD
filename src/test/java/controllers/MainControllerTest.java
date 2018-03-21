@@ -55,7 +55,7 @@ public class MainControllerTest {
     public void showAllTest() throws Exception {
         List<Info> expectedList = new ArrayList<>();
         IntStream.of(1, 5).forEach(i -> expectedList.add(new Info(1, "name"+i, "email"+i)));
-        when(repo.getAll()).thenReturn(expectedList);
+        when(repo.findAll()).thenReturn(expectedList);
 
         mockMvc.perform(get("/showAll"))
                 .andExpect(model().attributeExists("infoList"))
@@ -72,7 +72,7 @@ public class MainControllerTest {
     @Test
     public void deleteTest() throws Exception {
         mockMvc.perform(get("/delete/1"));
-        verify(repo, times(1)).delete(1);
+        verify(repo, times(1)).delete(1L);
     }
 
     @Test

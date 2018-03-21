@@ -1,11 +1,18 @@
 package dao;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 /**
- * Взаимодействие с БД
+ * Запросы к таблице info
  */
-public interface Repo {
+@Transactional
+public interface Repo extends JpaRepository<Info, Long>{
 
     /**
      * Получение информации из БД
@@ -15,26 +22,12 @@ public interface Repo {
     Info getById(long infoId);
 
     /**
-     * Получение списка информации из БД
-     * @return - список информации из БД
+     * Редактирование информации
+     * @param name - новое имя
+     * @param email - новый email
+     * @param id - id заявки, которую хотим отредактировать
      */
-    List<Info> getAll();
-
-    /**
-     * Сохранение новой информации
-     * @param info - новая сохраняемая информация
-     */
-    void save(Info info);
-
-    /**
-     * Удаление инфы
-     * @param infoId - id удаляемой инфы
-     */
-    void delete(long infoId);
-
-    /**
-     * Редактирование инфы
-     * @param info - редактируемая инфа
-     */
-    void edit(Info info);
+    @Modifying
+    @Query("update Info i set i.name=:name, i.email=:email where i.id=:id")
+    void edit(@Param("name") String name, @Param("email") String email, @Param("id") long id);
 }

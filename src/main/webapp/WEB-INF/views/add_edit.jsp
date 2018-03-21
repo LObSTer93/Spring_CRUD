@@ -24,10 +24,10 @@
                 </tr>
                 <tr>
                     <td>
-                        <label for="eMail">Email: </label>
+                        <label for="email">Email: </label>
                     </td>
                     <td>
-                        <input type="email" name="eMail" id="eMail" value="${isEdit ? info.EMail : ''}" />
+                        <input type="email" name="email" id="email" value="${isEdit ? info.email : ''}" />
                     </td>
                 </tr>
             </table>

@@ -27,10 +27,10 @@
                 </security:authorize>
             </tr>
             <c:forEach items="${infoList}" var="info">
-                <s>
+                <tr>
                     <td>${info.id}</td>
                     <td>${info.name}</td>
-                    <td>${info.EMail}</td>
+                    <td>${info.email}</td>
                     <security:authorize access="hasRole('ADMIN')">
                         <td><a href="<c:url value='/edit/${info.id}'/>">Edit</a></td>
                         <td><a href="<c:url value='/delete/${info.id}'/>">Delete</a></td>

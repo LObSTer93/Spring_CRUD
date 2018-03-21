@@ -29,7 +29,7 @@ public class MainController {
 
     @RequestMapping(value = "/showAll", method = RequestMethod.GET)
     public String showAll(Model model) {
-        model.addAttribute("infoList", repo.getAll());
+        model.addAttribute("infoList", repo.findAll());
         return "showAll";
     }
 
@@ -61,7 +61,7 @@ public class MainController {
 
     @RequestMapping(value = "/edit/{infoId}", method = RequestMethod.POST)
     public String processEdit(Info info) {
-        repo.edit(info);
+        repo.edit(info.getName(), info.getEmail(), info.getId());
         return "redirect:/showAll";
     }
 }
