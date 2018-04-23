@@ -6,7 +6,10 @@ import Exceptions.InfoNotFoundException;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.support.RootBeanDefinition;
+import org.springframework.context.support.StaticApplicationContext;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import java.util.ArrayList;
@@ -37,8 +40,14 @@ public class MainControllerTest {
         internalResourceViewResolver.setSuffix(".jsp");
         internalResourceViewResolver.setExposeContextBeansAsAttributes(true);
 
+        ExceptionHandlerExceptionResolver exceptionHandlerExceptionResolver = new ExceptionHandlerExceptionResolver();
+        StaticApplicationContext applicationContext = new StaticApplicationContext();
+        applicationContext.registerBeanDefinition("advice", new RootBeanDefinition(ControllerExceptionHandler.class, null, null));
+        exceptionHandlerExceptionResolver.setApplicationContext(applicationContext);
+        exceptionHandlerExceptionResolver.afterPropertiesSet();
+
         mockMvc = standaloneSetup(new MainController(repo))
-                .setControllerAdvice(new ControllerExceptionHandler())
+                .setHandlerExceptionResolvers(exceptionHandlerExceptionResolver)
                 .setViewResolvers(internalResourceViewResolver)
                 .build();
     }

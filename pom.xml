@@ -9,8 +9,9 @@
     <url>http://maven.apache.org</url>
 
     <properties>
-        <spring_version>4.3.11.RELEASE</spring_version>
-        <spring_security_version>4.2.4.RELEASE</spring_security_version>
+        <spring_version>3.2.18.RELEASE</spring_version>
+        <spring_security_version>3.2.10.RELEASE</spring_security_version>
+        <hibernate_version>5.0.12.Final</hibernate_version>
     </properties>
 
     <dependencies>
@@ -71,19 +72,25 @@
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-jpa</artifactId>
-            <version>1.11.10.RELEASE</version>
+            <version>1.6.6.RELEASE</version>
         </dependency>
 
         <dependency>
             <groupId>org.hibernate.javax.persistence</groupId>
             <artifactId>hibernate-jpa-2.1-api</artifactId>
-            <version>1.0.2.Final</version>
+            <version>1.0.0.Final</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>${hibernate_version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>5.2.12.Final</version>
+            <version>${hibernate_version}</version>
         </dependency>
 
         <dependency>
