@@ -7,7 +7,8 @@
     <title>Show all info</title>
 </head>
 <body>
-    <security:authorize access="hasRole('ADMIN')">
+
+    <security:authorize access="hasRole('ROLE_ADMIN')" var="isAdmin">
         <a href="<c:url value="/add" />">Add info</a>
     </security:authorize>
     <br/>
@@ -21,20 +22,20 @@
                 <th>ID</th>
                 <th>Name</th>
                 <th>Email</th>
-                <security:authorize access="hasRole('ADMIN')">
+                <c:if test="${isAdmin}">
                     <th>Edit</th>
                     <th>Delete</th>
-                </security:authorize>
+                </c:if>
             </tr>
             <c:forEach items="${infoList}" var="info">
                 <tr>
                     <td>${info.id}</td>
                     <td>${info.name}</td>
                     <td>${info.email}</td>
-                    <security:authorize access="hasRole('ADMIN')">
+                    <c:if test="${isAdmin}">
                         <td><a href="<c:url value='/edit/${info.id}'/>">Edit</a></td>
                         <td><a href="<c:url value='/delete/${info.id}'/>">Delete</a></td>
-                    </security:authorize>
+                    </c:if>
                 </tr>
             </c:forEach>
         </table>
