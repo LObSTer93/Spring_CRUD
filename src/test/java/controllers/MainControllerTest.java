@@ -4,6 +4,7 @@ import dao.Info;
 import dao.Repo;
 import Exceptions.InfoNotFoundException;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.support.RootBeanDefinition;
@@ -98,6 +99,7 @@ public class MainControllerTest {
     }
 
     @Test
+    @Ignore
     public void exceptionTest() throws Exception{
         long infoId = 1;
         Throwable infoNotFoundException = new InfoNotFoundException(infoId);

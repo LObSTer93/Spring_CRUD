@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.jpa.AbstractEntityManagerFactoryBean;
@@ -14,6 +15,8 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
 import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
@@ -23,12 +26,11 @@ public class DBConfigDev {
 
     @Bean
     public DataSource devDataSource(){
-        EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
-
-        return builder.
-                setType(EmbeddedDatabaseType.H2).
-                addScript("classpath:schema.sql").
-                addScript("classpath:data.sql").
-                build();
+        DriverManagerDataSource driver = new DriverManagerDataSource();
+        driver.setDriverClassName("org.postgresql.Driver");
+        driver.setUrl("jdbc:postgresql://localhost:5432/postgres");
+        driver.setUsername("postgres");
+        driver.setPassword("admin");
+        return driver;
     }
 }

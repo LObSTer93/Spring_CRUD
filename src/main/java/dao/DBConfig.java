@@ -21,11 +21,6 @@ import java.util.Properties;
 @ComponentScan
 public class DBConfig {
 
-    @Bean(initMethod="start",destroyMethod="stop")
-    public org.h2.tools.Server h2WebConsonleServer () throws SQLException {
-        return org.h2.tools.Server.createWebServer("-web","-webAllowOthers","-webDaemon","-webPort", "8082");
-    }
-
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
@@ -34,7 +29,7 @@ public class DBConfig {
         em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 
         Properties properties = new Properties();
-        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
+        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQL9Dialect");
         em.setJpaProperties(properties);
 
         return em;
